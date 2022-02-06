@@ -265,6 +265,16 @@ img {
   background: rgb(68, 119, 167);
 }
 
+.btn-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.delete-btn:hover {
+  background: rgb(30, 30, 63);
+}
+
 @media screen and (max-width: 800px) {
   .drink-wrapper {
     display: flex;

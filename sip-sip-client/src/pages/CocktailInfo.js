@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Loading from '../components/Loading';
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -8,6 +9,12 @@ const CocktailInfo = () => {
   const [cocktail, setCocktail] = useState(null);
 
   const baseUrl = `http://localhost:8000/drinks/${id}`
+
+  const deleteDrink = (props, id) => {
+    axios.delete(baseUrl)
+    .then(() => props.setAllDrinks(props.allDrinks.filter(drink => drink.id !== id)))
+    .catch((err) => console.log(err))
+  }
 
   useEffect(() => {
     setLoading(true);
@@ -35,7 +42,7 @@ const CocktailInfo = () => {
       
     }
     getCocktail();
-  }, [id]);
+  }, [id, baseUrl]);
   if (loading) {
     return <Loading />
   }
@@ -75,9 +82,12 @@ const CocktailInfo = () => {
               return item ? <span key={index}>{item}</span> : null 
             })}
           </p>
-          <Link to="/" className="btn-back-home">
-            GO BACK
-          </Link>
+          <div className="btn-wrapper">
+            <Link to="/" className="btn-back-home">
+              GO BACK
+            </Link>
+            <button type="submit" className="delete-btn btn-back-home" onClick={deleteDrink}>DELETE</button>
+          </div>
         </div>
       </div>
     </section>
