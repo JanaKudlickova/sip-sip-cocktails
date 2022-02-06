@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import Cocktail from '../components/Cocktail';
-import NewCocktail from '../components/NewCocktail';
+import Cocktail from './Cocktail';
+import NewCocktail from './NewCocktail';
 
 
 const CocktailList = () => {
