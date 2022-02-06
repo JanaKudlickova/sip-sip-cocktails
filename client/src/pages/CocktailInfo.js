@@ -8,7 +8,8 @@ const CocktailInfo = () => {
   const [loading, setLoading] = useState(false);
   const [cocktail, setCocktail] = useState(null);
 
-  const baseUrl = `http://localhost:8000/drinks/${id}`
+  //const baseUrl = `http://localhost:8000/drinks/${id}`
+  const baseUrl = `/drinks/${id}`
 
   const deleteDrink = (props, id) => {
     axios.delete(baseUrl)

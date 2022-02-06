@@ -25,12 +25,15 @@ const CocktailList = () => {
     
       useEffect(() => {
           axios
-              .get("http://localhost:8000/drinks")
+              //.get("http://localhost:8000/drinks")
+              .get("/drinks")
               .then(response => setAllDrinks(response.data))
               .catch(error => console.log(error))
       }, [refetchFlag])
 
-      const base_url = "http://localhost:8000/drinks";
+      //const base_url = "http://localhost:8000/drinks";
+      const base_url = "/drinks";
+
 
       const addNewCocktail = async (e) => {
         e.preventDefault();
