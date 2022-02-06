@@ -2,26 +2,25 @@ import Loading from '../components/Loading';
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-const url = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i="
-
 const CocktailInfo = () => {
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [cocktail, setCocktail] = useState(null);
 
+  const baseUrl = `http://localhost:8000/drinks/${id}`
+
   useEffect(() => {
     setLoading(true);
     async function getCocktail(){
       try {
-        const response = await fetch(`${url}${id}`);
+        const response = await fetch(baseUrl);
         const data = await response.json();
-        if (data.drinks) {
-          const {strDrink: name, strDrinkThumb: image, strAlcoholic: info, strCategory: category, strGlass: glass, strInstructions: instructions, strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5, strIngredient6, strIngredient7} = data.drinks[0];
+        if (data) {
+          const {name, url, type, category, glass, instructions, ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7} = data;
           const ingredients = [
-            strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5, strIngredient6, strIngredient7
-          ];
+            ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7];
           const newCocktail = {
-            name, image, info, category, glass, instructions, ingredients
+            name, url, type, category, glass, instructions, ingredients
           };
           setCocktail(newCocktail);
         } else {
@@ -43,12 +42,12 @@ const CocktailInfo = () => {
   if (!cocktail) {
     return <h2 className="section-title">No cocktail to display.</h2>
   }
-  const {name, image, category, info, glass, instructions, ingredients} = cocktail;
+  const {name, url, category, type, glass, instructions, ingredients} = cocktail;
   return (
     <section className="cocktail-section">
       <h2 className="section-title">{name}</h2>
       <div className="drink-wrapper">
-        <img className="drink-image" src={image} alt={name} />
+        <img className="drink-image" src={url} alt={name} />
         <div className="drink-info">
           <p>
             <span className="drink-label">Name:</span>
@@ -59,8 +58,8 @@ const CocktailInfo = () => {
             {category}
           </p>
           <p>
-            <span className="drink-label">Info:</span>
-            {info}
+            <span className="drink-label">Type:</span>
+            {type}
           </p>
           <p>
             <span className="drink-label">Glass:</span>
@@ -86,3 +85,4 @@ const CocktailInfo = () => {
 };
 
 export default CocktailInfo;
+
