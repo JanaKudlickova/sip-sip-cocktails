@@ -1,6 +1,7 @@
 const Favourites = () => {
-  return 
-  <h2>My Favourite Cocktails</h2>;
+  return (
+  <h2 className="section-title">My Favourite Cocktails</h2>
+  );
 };
 
 export default Favourites;
