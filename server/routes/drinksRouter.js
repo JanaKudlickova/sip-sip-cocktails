@@ -5,6 +5,7 @@ const drinksController = require('../controllers/drinksControllers');
 
 
 drinksRouter.get('/', drinksController.getAllDrinks);
+drinksRouter.get('/:id', drinksController.getDrinkById);
 drinksRouter.post('/', drinksController.addDrink);
 drinksRouter.delete('/:id', drinksController.deleteDrink);
 

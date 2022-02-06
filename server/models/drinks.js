@@ -5,6 +5,11 @@ const getAllDrinks = async () => {
   .then(([results, fields]) => results);
 };
 
+const getDrinkById = async (id) => {
+  return await connection.promise().query('SELECT * FROM drinks WHERE id = ?', [id])
+   .then(([results, fields]) => results);
+ };
+
 const addDrink = async (body) => {
  return await connection.promise().query('INSERT INTO drinks (name, category, type, glass, instructions, url, ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
  [body.name, body.category, body.type, body.glass, body.instructions, body.url, body.ingredient1, body.ingredient2, body.ingredient3, body.ingredient4, body.ingredient5, body.ingredient6, body.ingredient7])
@@ -19,6 +24,7 @@ const deleteDrink = async (id) => {
 
 module.exports = {
  getAllDrinks,
+ getDrinkById,
  addDrink,
  deleteDrink
 };

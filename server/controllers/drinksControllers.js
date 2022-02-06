@@ -9,6 +9,26 @@ const getAllDrinks = async (req, res) => {
  else res.status(404).send('No drinks found');
 }
 
+
+const getDrinkById = async (req, res) => {
+    const id = req.params.id;
+   
+    const { error: validationErrors } = Joi.object({
+     id: Joi.string().required()
+    }).validate({ id }, { abortEarly: false });
+   
+   
+    if (validationErrors) {
+     res.status(422).json({ error: validationErrors.details })
+    } else {
+    // Query DB
+    const data = await Drinks.getDrinkById(req.params.id);
+    // If it was successful
+    if (data.length) res.status(200).json(data[0]);
+    else res.status(404).send('Drink not found');
+   }
+   }
+
 const addDrink = async (req, res) => {
     const { name, category, type, glass, instructions, url, ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7 } = req.body;
 
@@ -76,6 +96,7 @@ const deleteDrink = async (req, res) => {
 
    module.exports = {
     getAllDrinks,
+    getDrinkById,
     addDrink,
     deleteDrink
    };
